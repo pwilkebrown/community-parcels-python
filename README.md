@@ -11,17 +11,11 @@ This GitHub repository houses the data aggregation toolset used to update the co
 
 Toolset Include the following:
 
-1. Map source parcel fields to the Community Parcel Schema
-		-Leverage ArcGIS Parcel Management solution (can contribute seamlessly)
-		-Users can also contribute shapefiles, GDB feature classes (field mapping required)
+1. Map source parcel fields to the Community Parcel Schema - Leverage ArcGIS Parcel Management solution (can contribute seamlessly), Users can also contribute shapefiles, GDB feature classes (field mapping required)
 
-2. Update the Community Parcels service
-		-Truncate, delete parcels from existing service (based on FIPS code)
-		-Add authoritative parcel data from local source
+2. Update the Community Parcels service - Truncate, delete parcels from existing service (based on FIPS code), Add authoritative parcel data from local source
 
-3. Promote ongoing contributions
-		-Run ad-hoc (quarterly, weekly, daily)
-		-Schedule nightly using a script 
+3. Promote ongoing contributions - Run ad-hoc (quarterly, weekly, daily), Schedule nightly using a script 
 
 
 
@@ -68,5 +62,5 @@ limitations under the License.
 A copy of the license is available in the repository's
 [LICENSE.txt](https://raw.github.com/Esri/telco-service-qualification/master/LICENSE.txt) file.
 
-[](Esri Tags: Utilities AGOL Python ArcGIS-Online)
+[](Esri Tags: LocalGovernment AGOL Python ArcGIS-Online)
 [](Esri Language: Python)
