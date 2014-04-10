@@ -62,5 +62,5 @@ limitations under the License.
 A copy of the license is available in the repository's
 [LICENSE.txt](https://raw.github.com/Esri/telco-service-qualification/master/LICENSE.txt) file.
 
-[](Esri Tags: LocalGovernment AGOL Python ArcGIS-Online)
+[](Esri Tags: LocalGovernment CommunityParcels AGOL Python ArcGIS-Online)
 [](Esri Language: Python)
