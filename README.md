@@ -9,18 +9,20 @@ The Community Parcel solution will leverage the core ArcGIS Platform to help com
 
 This GitHub repository houses the data aggregation toolset used to update the community parcels (seamless set of parcels) feature service.  
 
-Toolset features:
+Toolset Include the following:
 
-1. Map (fields) and adjust (project) your parcels to the community parcels schema
-2. Truncate parcels from the community parcels ArcGIS online feature service using county code information (county description)
-3. Add or update the community parcels ArcGIS online feature service 
+1. Map source parcel fields to the Community Parcel Schema
+		-Leverage ArcGIS Parcel Management solution (can contribute seamlessly)
+		-Users can also contribute shapefiles, GDB feature classes (field mapping required)
 
-Toolset tools:
+2. Update the Community Parcels service
+		-Truncate, delete parcels from existing service (based on FIPS code)
+		-Add authoritative parcel data from local source
 
-1. Schema-only layer package that includes the Community Parcels schema
-2. A toolbox to run the parcel aggregation from ArcGIS - ArcMap, with a simple tool to execute
-3. A python script that can run standalone as a Windows task scheduler, or any scheduler that can run a python script
-4. A configuration file (text) that allows you to specify the location of your parcels, the community parcels, and username and password information 
+3. Promote ongoing contributions
+		-Run ad-hoc (quarterly, weekly, daily)
+		-Schedule nightly using a script 
+
 
 
 ## Instructions
@@ -30,7 +32,8 @@ Toolset tools:
 
 ## Requirements
 
-* Notepad or a Python Editor
+* For editing and customizing the scripts - Notepad or a Python Editor
+* Basic understanding of GeoProcessing with ArcGIS
 * ArcGIS Desktop 10.2
  
 ## Resources
