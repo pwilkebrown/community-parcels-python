@@ -60,7 +60,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 A copy of the license is available in the repository's
-[LICENSE.txt](https://raw.github.com/Esri/telco-service-qualification/master/LICENSE.txt) file.
+[LICENSE.txt](https://github.com/Esri/community-parcels-python/blob/master/License.txt) file.
 
 [](Esri Tags: LocalGovernment CommunityParcels AGOL Python ArcGIS-Online)
 [](Esri Language: Python)
