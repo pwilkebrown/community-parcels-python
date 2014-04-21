@@ -19,6 +19,7 @@ Toolset Include the following:
 
 
 
+
 ## Instructions
 
 ### General Help
@@ -31,6 +32,8 @@ Toolset Include the following:
 * ArcGIS Desktop 10.2
  
 ## Resources
+
+*This script leverages the agol-helper python package to move information to and from hosted services
 
 
 ## Issues
