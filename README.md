@@ -33,7 +33,7 @@ Toolset Include the following:
  
 ## Resources
 
-This script leverages the agol-helper python package to move information to and from hosted services
+This script leverages the [agol-helper](https://github.com/Esri/agol-helper) python package to move information to and from hosted services
 
 
 ## Issues
