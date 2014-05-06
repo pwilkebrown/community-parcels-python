@@ -126,7 +126,7 @@ def main(config_file, *args):
 
 
         print "Community Parcels upload Started"
-        arcpy.AddMessage("Community Parcels upload started, please be patient, may take +- 5 minutes per 80,000 parcels.  For future consideration, please run tool during non-peak internet usage")
+        arcpy.AddMessage("Community Parcels upload started, please be patient. For future consideration, please run tool during non-peak internet usage")
         fs.addFeatures(CommunityParcelsLocalCopy)
 
 
