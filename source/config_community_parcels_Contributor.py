@@ -1,3 +1,13 @@
+"""
+    @author:
+    @contact:
+    @company: Esri
+    @version: 1.0.0
+    @description:
+    @requirements: Python 2.7.x, ArcGIS 10.2.1
+    @copyright: Esri, 2014
+"""
+
 from os.path import dirname, join, realpath
 import arcpy
 import ConfigParser

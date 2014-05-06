@@ -1,3 +1,14 @@
+"""
+    @author:
+    @contact:
+    @company: Esri
+    @version: 1.0.0
+    @description:
+    @requirements: Python 2.7.x, ArcGIS 10.2.1
+    @copyright: Esri, 2014
+
+"""
+
 import agol
 import arcpy
 import sys, os, datetime
