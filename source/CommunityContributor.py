@@ -555,9 +555,10 @@ def main(config_file, *args):
         arcpy.AddMessage("Community Parcel Update to ArcGIS Online Started, please be patient")
 
 
-    # Calculate the Last Editor field
-        arcpy.CalculateField_management(CommunityParcelsLocalCopy, "LASTEDITOR", username , "VB", "")
-        print "Calculating Last Editor "
+    #Calculate Last Editor Field
+        calc0 = '"{0}"'.format(username)
+        arcpy.CalculateField_management(CommunityParcelsLocalCopy, "LASTEDITOR", calc0)
+        print "Calculating Last Editor"
         arcpy.AddMessage("Calculating Last Editor")
 
 

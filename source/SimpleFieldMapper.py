@@ -385,8 +385,15 @@ def main(config_file, *args):
     # Calculate the Last Update field
 
     arcpy.CalculateField_management(CommunityParcelsLocalCopy, "LASTUPDATE", "time.strftime(\"%m/%d/%Y\")", "PYTHON", "")
-    print "Calculating Last Update "
+    print "Calculating Last Update"
     arcpy.AddMessage("Calculating Last Update")
+
+    #Calculate Last Editor Field
+    calc0 = '"{0}"'.format(countycityname)
+    arcpy.CalculateField_management(CommunityParcelsLocalCopy, "LASTEDITOR", calc0)
+    print "Calculating Last Editor"
+    arcpy.AddMessage("Calculating Last Editor")
+
 
     # Calculate the LOCALFIPS to the County/City Name
     calc = '"{0}"'.format(countycityname)
