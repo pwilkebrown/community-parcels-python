@@ -8,20 +8,13 @@
     @copyright: Esri, 2014
 
 """
-import agol
 import arcpy
 import sys, os, datetime
 import ConfigParser
 from os.path import dirname, join, exists, splitext, isfile
 
-from agol import Utilities
-from agol import services
-
-
 from arcpy import env
-from agol.Utilities import FeatureServiceError
-from agol.Utilities import UtilitiesError
-
+from arcrest.agol import layer
 
 logFileName ='.\\logs\\ParcelUpdate.log'
 ##configFilePath =  '.\\configs\\UpdateCommunityParcels.ini'
@@ -118,7 +111,7 @@ def main(config_file, *args):
         sys.exit()
 
 
-    fs = services.FeatureService(url=reportCurrentURL,username=username,password=password)
+    fs = layer.FeatureLayer(url=reportCurrentURL,username=username,password=password)
     if fs == None:
         print "Cannot find or connect to service, make sure service is accessible"
         arcpy.AddMessage("Cannot find or connect to service, make sure service is accessible")
@@ -587,33 +580,32 @@ def main(config_file, *args):
 
 
         try:
-            fs._getOIDField()
-            value1=fs.OIDS(deleteSQL)
-            myids=value1 ['objectIds']
+                value1 = fs.query(where=deleteSQL, returnIDsOnly=True)
+                myids=value1 ['objectIds']
 
 
-            minId = min(myids)
-            i = 0
-            maxId = max(myids)
+                minId = min(myids)
+                i = 0
+                maxId = max(myids)
 
 
-            print minId
-            print maxId
-            chunkSize = 1500
+                print minId
+                print maxId
+                chunkSize = 1000
 
 
-            while (i <= len(myids)):
-                #print myids[i:i+1000]
-                oids = ",".join(str(e) for e in myids[i:i+chunkSize])
-                #print oids
-                if oids == '':
-                    continue
-                else:
-                    fs.deleteFeaturesOID(oids)
-                i+=chunkSize
-                print i
-                print "Completed: {0:2f}%".format( i/ float(len(myids))*100)
-                arcpy.AddMessage("Deleted: {0:2f}%".format ( i/ float(len(myids))*100))
+                while (i <= len(myids)):
+                    #print myids[i:i+1000]
+                    oids = ",".join(str(e) for e in myids[i:i+chunkSize])
+                    print oids
+                    if oids == '':
+                        continue
+                    else:
+                        fs.deleteFeatures(objectIds=oids)
+                    i+=chunkSize
+                    print i
+                    print "Completed: {0:2f}%".format( i/ float(len(myids))*100)
+                    arcpy.AddMessage("Deleted: {0:2f}%".format ( i/ float(len(myids))*100))
 
 
         except:
@@ -631,53 +623,3 @@ if __name__ == '__main__':
     main(*argv)
 
 
-### Create the log file
-##
-##
-##    try:
-##        log = open(logFileName, 'a')
-##
-##
-##    except:
-##        print "Log file could not be created"
-##
-##
-### Change the output to both the windows and log file
-##
-##
-##    original = sys.stdout
-##    sys.stdout = Utilities.Tee(sys.stdout, log)
-##
-##
-##    print "Community Parcel Upload Started"
-##    print datetime.datetime.now().strftime(dateTimeFormat)
-
-
-# Load the config file
-
-
-##    if isfile(config_file):
-##        config = ConfigParser.ConfigParser()
-##        config.read(config_file)
-##
-##    else:
-##        print "INI file not found."
-##        sys.exit()
-
-##
-##    if os.path.isfile(configFilePath):
-##        config = ConfigParser.ConfigParser()
-##        config.read(configFilePath)
-##    else:
-##        print "INI file not found."
-##        sys.exit()
-
-
-### Run the script
-##
-##
-##    runScript(log, config_file, *args)
-##    print datetime.datetime.now().strftime(dateTimeFormat)
-##    print "Community Parcel Upload Completed"
-##    arcpy.AddMessage("Community Parcel Upload Completed")
-##    log.close()

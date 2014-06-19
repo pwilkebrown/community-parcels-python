@@ -8,21 +8,13 @@
     @copyright: Esri, 2014
 
 """
-
-import agol
 import arcpy
 import sys, os, datetime
 import ConfigParser
 from os.path import dirname, join, exists, splitext, isfile
 
-from agol import Utilities
-from agol import services
-
-
 from arcpy import env
-from agol.Utilities import FeatureServiceError
-from agol.Utilities import UtilitiesError
-
+from arcrest.agol import layer
 
 logFileName ='.\\logs\\ParcelUpdate.log'
 ##configFilePath =  '.\\configs\\UpdateCommunityParcels.ini'
@@ -82,15 +74,18 @@ def main(config_file, *args):
         sys.exit()
 
 
-    fs = services.FeatureService(url=reportCurrentURL,username=username,password=password)
+    fs = layer.FeatureLayer(url=reportCurrentURL,username=username,password=password)
     if fs == None:
         print "Cannot find or connect to service, make sure service is accessible"
         arcpy.AddMessage("Cannot find or connect to service, make sure service is accessible")
         sys.exit()
 
 
-    # Update Current service if used - see the services helper in the agolhelper folder
-
+    # Update Current service if used - see the ArcREST folder in the application directory
+    
+    arcpy.management.TruncateTable(localparcels)
+    print "Cleaning up local parcel data"
+    arcpy.AddMessage("Cleaning up local parcels")
 
     if createCurrent == "True":
         fs.url = reportCurrentURL
@@ -100,36 +95,35 @@ def main(config_file, *args):
         print "Mapping Local Parcel data to Community Parcel Schema"
         print "Community Parcel Update to ArcGIS Online Started, please be patient"
         arcpy.AddMessage("Mapping Local Parcel data to Community Parcel Schema")
-        arcpy.AddMessage("Community Parcel Update to ArcGIS Online Started, please be patient")
+        arcpy.AddMessage("Truncating Parcels from Feature Service")
 
         try:
-            fs._getOIDField()
-            value1=fs.OIDS(deleteSQL)
-            myids=value1 ['objectIds']
+                value1 = fs.query(where=deleteSQL, returnIDsOnly=True)
+                myids=value1 ['objectIds']
 
 
-            minId = min(myids)
-            i = 0
-            maxId = max(myids)
+                minId = min(myids)
+                i = 0
+                maxId = max(myids)
 
 
-            print minId
-            print maxId
-            chunkSize = 2000
+                print minId
+                print maxId
+                chunkSize = 1000
 
 
-            while (i <= len(myids)):
-                #print myids[i:i+1000]
-                oids = ",".join(str(e) for e in myids[i:i+chunkSize])
-                #print oids
-                if oids == '':
-                    continue
-                else:
-                    fs.deleteFeaturesOID(oids)
-                i+=chunkSize
-                print i
-                print "Completed: {0:2f}%".format( i/ float(len(myids))*100)
-                arcpy.AddMessage("Deleted: {0:2f}%".format ( i/ float(len(myids))*100))
+                while (i <= len(myids)):
+                    #print myids[i:i+1000]
+                    oids = ",".join(str(e) for e in myids[i:i+chunkSize])
+                    print oids
+                    if oids == '':
+                        continue
+                    else:
+                        fs.deleteFeatures(objectIds=oids)
+                    i+=chunkSize
+                    print i
+                    print "Completed: {0:2f}%".format( i/ float(len(myids))*100)
+                    arcpy.AddMessage("Deleted: {0:2f}%".format ( i/ float(len(myids))*100))
 
 
         except:
@@ -138,7 +132,7 @@ def main(config_file, *args):
 
         print "Community Parcels upload Started"
         arcpy.AddMessage("Community Parcels upload started, please be patient. For future consideration, please run tool during non-peak internet usage")
-        fs.addFeatures(CommunityParcelsLocalCopy)
+        fs.addFeatures(localparcels)
 
 
 if __name__ == '__main__':
