@@ -7,7 +7,9 @@ Update Community Parcels
 
 The Community Parcel solution will leverage the core ArcGIS Platform to help communities aggregate parcel information from authoritative sources in a simple and sustainable way and leverage this information in many workflows. 
 
-This GitHub repository houses the data aggregation toolset used to update the community parcels (seamless set of parcels) feature service.  
+This GitHub repository houses the data aggregation toolset used to update the community parcels (seamless set of parcels) feature service. 
+
+This solutions makes use of [ArcRest] (https://github.com/Esri/ArcREST)
 
 Toolset Include the following:
 
