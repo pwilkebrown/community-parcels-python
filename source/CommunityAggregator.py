@@ -122,8 +122,8 @@ def main(config_file, *args):
                         fs.deleteFeatures(objectIds=oids)
                     i+=chunkSize
                     print i
-                    print "Completed: {0:2f}%".format( i/ float(len(myids))*100)
-                    arcpy.AddMessage("Deleted: {0:2f}%".format ( i/ float(len(myids))*100))
+                    print "Completed: {0:.0f}%".format( i/ float(len(myids))*100)
+                    arcpy.AddMessage("Deleted: {0:.0f}%".format ( i/ float(len(myids))*100))
 
 
         except:
