@@ -591,7 +591,7 @@ def main(config_file, *args):
 
                 print minId
                 print maxId
-                chunkSize = 1000
+                chunkSize = 500
 
 
                 while (i <= len(myids)):
