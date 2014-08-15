@@ -59,15 +59,23 @@ class Admin(BaseAGOLClass):
         self._password = password
         self._proxy_url = proxy_url
         self._proxy_port = proxy_port
-        if not username is None and\
-           not password is None:
+        if not username is None and \
+                   not password is None and \
+                   not username is "" and \
+                   not password is "":
             if not token_url is None:
-                self._token = self.generate_token(tokenURL=token_url,
-                                                  proxy_port=self._proxy_port,
-                                                  proxy_url=self._proxy_url)[0]
+                res = self.generate_token(tokenURL=token_url,
+                                              proxy_port=proxy_port,
+                                            proxy_url=proxy_url)
+            else:   
+                res = self.generate_token(proxy_port=self._proxy_port,
+                                                       proxy_url=self._proxy_url)                
+            if res is None:
+                print "Token was not generated"
+            elif 'error' in res:
+                print res
             else:
-                self._token = self.generate_token(proxy_port=self._proxy_port,
-                                                  proxy_url=self._proxy_url)[0]
+                self._token = res[0]      
         if initialize:
             self.__init()
     #----------------------------------------------------------------------
@@ -170,15 +178,23 @@ class AdminMapService(BaseAGOLClass):
         self._password = password
         self._proxy_url = proxy_url
         self._proxy_port = proxy_port
-        if not username is None and\
-           not password is None:
+        if not username is None and \
+           not password is None and \
+           not username is "" and \
+           not password is "":
             if not token_url is None:
-                self._token = self.generate_token(tokenURL=token_url,
-                                                  proxy_port=self._proxy_port,
-                                                  proxy_url=self._proxy_url)[0]
+                res = self.generate_token(tokenURL=token_url,
+                                              proxy_port=proxy_port,
+                                            proxy_url=proxy_url)
+            else:   
+                res = self.generate_token(proxy_port=self._proxy_port,
+                                                       proxy_url=self._proxy_url)                
+            if res is None:
+                print "Token was not generated"
+            elif 'error' in res:
+                print res
             else:
-                self._token = self.generate_token(proxy_url=self._proxy_url,
-                                                  proxy_port=self._proxy_port)[0]
+                self._token = res[0]
         if initialize:
             self.__init()
     #----------------------------------------------------------------------
@@ -281,15 +297,23 @@ class AdminFeatureService(BaseAGOLClass):
         self._password = password
         self._proxy_url = proxy_url
         self._proxy_port = proxy_port
-        if not username is None and\
-           not password is None:
+        if not username is None and \
+           not password is None and \
+           not username is "" and \
+           not password is "":
             if not token_url is None:
-                self._token = self.generate_token(tokenURL=token_url,
-                                                  proxy_url=proxy_url,
-                                                  proxy_port=proxy_port)[0]
+                res = self.generate_token(tokenURL=token_url,
+                                              proxy_port=proxy_port,
+                                            proxy_url=proxy_url)
+            else:   
+                res = self.generate_token(proxy_port=self._proxy_port,
+                                                       proxy_url=self._proxy_url)                
+            if res is None:
+                print "Token was not generated"
+            elif 'error' in res:
+                print res
             else:
-                self._token = self.generate_token(proxy_url=proxy_url,
-                                                  proxy_port=proxy_port)[0]
+                self._token = res[0]
         if initialize:
             self.__init()
     #----------------------------------------------------------------------
@@ -703,15 +727,23 @@ class AdminFeatureServiceLayer(BaseAGOLClass):
         self._password = password
         self._proxy_url = proxy_url
         self._proxy_port = proxy_port
-        if not username is None and\
-           not password is None:
+        if not username is None and \
+           not password is None and \
+           not username is "" and \
+           not password is "":
             if not token_url is None:
-                self._token = self.generate_token(tokenURL=token_url,
-                                                  proxy_port=self._proxy_port,
-                                                  proxy_url=self._proxy_url)[0]
+                res = self.generate_token(tokenURL=token_url,
+                                              proxy_port=proxy_port,
+                                            proxy_url=proxy_url)
+            else:   
+                res = self.generate_token(proxy_port=self._proxy_port,
+                                                       proxy_url=self._proxy_url)                
+            if res is None:
+                print "Token was not generated"
+            elif 'error' in res:
+                print res
             else:
-                self._token = self.generate_token(proxy_url=self._proxy_url,
-                                                  proxy_port=self._proxy_port)[0]
+                self._token = res[0]
         if initialize:
             self.__init()
     #----------------------------------------------------------------------
@@ -1330,7 +1362,7 @@ class AGOL(BaseAGOLClass):
         res = self._unicode_convert(json.loads(res))
         return res
     #----------------------------------------------------------------------
-    def addItem(self,  name, tags, description,snippet,data,extent,item_type='Web Map',thumbnail='',folder=None,typeKeywords = [
+    def addItem(self,  name, tags, description,snippet,data,extent,inparams = {},item_type='Web Map',thumbnail='',folder=None,typeKeywords = [
                     "ArcGIS Online",
                     "Collector",
                     "Data Editing",
@@ -1342,7 +1374,7 @@ class AGOL(BaseAGOLClass):
                     ]
                 ):
             """ loads a file to AGOL """
-
+ 
             params = {
                 "f" : "json",
                 "text" : json.dumps(data),
@@ -1355,7 +1387,7 @@ class AGOL(BaseAGOLClass):
                 "typeKeywords":typeKeywords,
                 "thumbnail": os.path.basename(thumbnail)
             }
-
+            params.update(inparams)
             if self._token is not None:
                 params['token'] = self._token
 
@@ -1521,7 +1553,7 @@ class AGOL(BaseAGOLClass):
                     return jres
         return jres
     #----------------------------------------------------------------------
-    def _modify_sddraft(self, sddraft,maxRecordCount='1000'):
+    def _modify_sddraft(self, sddraft,capabilities,maxRecordCount='1000'):
         """ modifies the sddraft for agol publishing """
 
         doc = ET.parse(sddraft)
@@ -1567,7 +1599,7 @@ class AGOL(BaseAGOLClass):
         # Turn on feature access capabilities
         for prop in doc.findall("./Configurations/SVCConfiguration/Definition/Info/PropertyArray/PropertySetProperty"):
             if prop.find("Key").text == 'WebCapabilities':
-                prop.find("Value").text = "Query,Create,Update,Delete,Uploads,Editing,Sync"
+                prop.find("Value").text = capabilities
 
         # Add the namespaces which get stripped, back into the .SD
         root_elem.attrib["xmlns:typens"] = 'http://www.esri.com/schemas/ArcGIS/10.1'
@@ -1691,7 +1723,7 @@ class AGOL(BaseAGOLClass):
         return resultList
     #----------------------------------------------------------------------
 
-    def publish_to_agol(self, mxd_path, service_name="None", tags="None", description="None",folder=None):
+    def publish_to_agol(self, mxd_path, service_name="None", tags="None", description="None",folder=None,capabilities ='Query,Create,Update,Delete,Uploads,Editing,Sync'):
         """ publishes a service to AGOL """
 
         if not os.path.isabs(mxd_path):
@@ -1722,7 +1754,7 @@ class AGOL(BaseAGOLClass):
         analysis = mapping.CreateMapSDDraft(mxd, sddraft,
                                             service_name,
                                             "MY_HOSTED_SERVICES")
-        sddraft = self._modify_sddraft(sddraft)
+        sddraft = self._modify_sddraft(sddraft=sddraft,capabilities=capabilities)
         analysis = mapping.AnalyzeForSD(sddraft)
         if os.path.isdir(sdFolder):
             shutil.rmtree(sdFolder, ignore_errors=True)
@@ -1745,7 +1777,7 @@ class AGOL(BaseAGOLClass):
                 if item['title'] == service_name and \
                    item['item'] == os.path.basename(sd):
                     print "Deleted: " + self._tostr( self.deleteItem(item['id']))
-    
+
                 elif item['title'] == service_name:
                     print "Deleted: " + self._tostr( self.deleteItem(item['id']))
 
@@ -1922,7 +1954,7 @@ class AGOL(BaseAGOLClass):
                         folderID = folder['id']
                         break
                 del folders
-                del folder
+
 
             if folderID == None:
                 res = self.createFolder(folder_name)
@@ -1958,7 +1990,7 @@ class AGOL(BaseAGOLClass):
 
         return itemID
     #----------------------------------------------------------------------
-    def createFeatureService(self, mxd, title, share_everyone,share_org,share_groups,thumbnail=None,folder_name=None):
+    def createFeatureService(self, mxd, title, share_everyone,share_org,share_groups,capabilities,thumbnail=None,folder_name=None):
         """
            The createFeatureService function publishes a service definition,
            publishes a features service, sets the details, and shares it with
@@ -1991,7 +2023,7 @@ class AGOL(BaseAGOLClass):
             return itemInfo
         item_id = ''
         service_url = ''
-        
+
         for service in itemInfo['services']:
             if 'error' in service:
                 raise ValueError(str(service))

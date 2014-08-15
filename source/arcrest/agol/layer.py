@@ -75,6 +75,8 @@ class FeatureLayer(BaseAGOLClass):
     _editingInfo = None
     _proxy_url = None
     _proxy_port = None
+    _supportsCalculate = None
+    _supportsAttachmentsByUploadId = None
     #----------------------------------------------------------------------
     def __init__(self, url,
                  username=None,
@@ -90,19 +92,24 @@ class FeatureLayer(BaseAGOLClass):
         self._password = password
         self._proxy_port = proxy_port
         self._proxy_url = proxy_url
-        if not username is None and\
-           not password is None:
+        if not username is None and \
+           not password is None and \
+           not username is "" and \
+           not password is "":
             if not token_url is None:
-                self._token = self.generate_token(tokenURL=token_url,
-                                                  proxy_port=self._proxy_port,
-                                                  proxy_url=self._proxy_url)[0]
-            else:
+                res = self.generate_token(tokenURL=token_url,
+                                              proxy_port=proxy_port,
+                                            proxy_url=proxy_url)
+            else:   
                 res = self.generate_token(proxy_port=self._proxy_port,
-                                          proxy_url=self._proxy_url)
-                if res == None:
-                    raise ValueError("Unable to get token")
-                else:
-                    self._token =res[0]
+                                                       proxy_url=self._proxy_url)                
+            if res is None:
+                print "Token was not generated"
+            elif 'error' in res:
+                print res
+            else:
+                self._token = res[0]
+      
         if initialize:
             self.__init()
     #----------------------------------------------------------------------
@@ -147,6 +154,20 @@ class FeatureLayer(BaseAGOLClass):
                       ]
         for att in attributes:
             yield (att, getattr(self, att))
+    #----------------------------------------------------------------------
+    @property
+    def supportsAttachmentsByUploadId(self):
+        """ returns the supports attachments by upload id """
+        if self._supportsAttachmentsByUploadId is None:
+            self.__init()
+        return self._supportsAttachmentsByUploadId
+    #----------------------------------------------------------------------
+    @property
+    def supportsCalculate(self):
+        """ returns the supports calculate value """
+        if self._supportsCalculate is None:
+            self.__init()
+        return self._supportsCalculate
     #----------------------------------------------------------------------
     @property
     def editingInfo(self):
