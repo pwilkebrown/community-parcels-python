@@ -37,6 +37,13 @@ Toolset Include the following:
 
 This script leverages the [ArcRest] (https://github.com/Esri/ArcREST) python package to move information to and from hosted services
 
+Learn more abour the [Community Parcels] (http://solutions.arcgis.com/state-government/help/community-parcels/).
+
+Learn more about Esri's ArcGIS for [Local Government maps and apps] (http://solutions.arcgis.com/local-government/).
+
+Show me a [list] (http://esri.github.io/#Local-Government) of other Local Government GitHub repositories.
+
+
 
 ## Issues
 
