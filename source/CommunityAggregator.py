@@ -104,8 +104,8 @@ def main(config_file, *args):
 
         print "Truncating Parcels from Feature Service"
         arcpy.AddMessage("Truncating Parcels from Feature Service")
-        print "Community Parcel Update to ArcGIS Online Started, please be patient"
-        arcpy.AddMessage("Community Parcel Update to ArcGIS Online Started, please be patient")
+        print "Community Parcel update started, please be patient"
+        arcpy.AddMessage("Community Parcel update started, please be patient")
 
         try:
                 value1 = fs.query(where=deleteSQL, returnIDsOnly=True)

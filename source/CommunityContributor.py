@@ -543,9 +543,9 @@ def main(config_file, *args):
 
 
         print "Mapping Local Parcel data to Community Parcel Schema"
-        print "Community Parcel Update to ArcGIS Online Started, please be patient"
+        print "Community Parcel update started, please be patient"
         arcpy.AddMessage("Mapping Local Parcel data to Community Parcel Schema")
-        arcpy.AddMessage("Community Parcel Update to ArcGIS Online Started, please be patient")
+        arcpy.AddMessage("Community Parcel update Started, please be patient")
 
 
     #Calculate Last Editor Field
@@ -580,8 +580,8 @@ def main(config_file, *args):
 
     #Densify FC to support JSON conversion
 
-##        arcpy.Densify_edit(CommunityParcelsLocalCopy, "OFFSET")
-##        arcpy.RepairGeometry_management(CommunityParcelsLocalCopy)
+        arcpy.Densify_edit(CommunityParcelsLocalCopy, "OFFSET")
+        arcpy.RepairGeometry_management(CommunityParcelsLocalCopy)
 
 
         try:
