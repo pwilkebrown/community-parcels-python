@@ -616,31 +616,8 @@ def main(config_file, *args):
         except:
             pass
 
-##        arcpy.IterateFeatreSer
-##
         print "Community Parcels upload Started"
         arcpy.AddMessage("Community Parcels upload started, please be patient.  For future consideration, please run tool during non-peak internet usage")
-##
-##        fieldname = "OBJECTID"
-##        value2 = [row[0] for row in arcpy.da.SearchCursor(CommunityParcelsLocalCopy, (fieldname))]
-##        myids2 = value2
-##
-##
-##        minId = min(myids2)
-##        i = 0
-##        maxId = max(myids2)
-##
-##        chunkSize2 = 500
-##
-##
-##        while (i <= len(myids2)):
-##            oids2 = ",".join(str(e) for e in myids2[i:i+chunkSize2])
-##            if oids2 == '':
-##                continue
-##            else:
-##                fs.addFeature(oids2)
-
-
 
         fs.addFeatures(CommunityParcelsLocalCopy)
 
