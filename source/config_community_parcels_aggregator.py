@@ -25,18 +25,18 @@ def write_config(names, vals, config, section):
         config.set(section, names[i], vals[i])
         i += 1
 
-def main(config_file,                   ##0
+def main(config_file,                   #0
 
-         communityparcellocalcopy ="",  ##1
-         localparcels ="",              ##2
-         CreateCurrent = True,          ##3
-         localfips ="",                 ##4
+         communityparcellocalcopy ="",  #1
+         localparcels ="",              #2
+         CreateCurrent = True,          #3
+         localfips ="",                 #4
 
-         FEATURESERVICEURL ="",         ##5
-         DELETESQL ="",                 ##6
+         FEATURESERVICEURL ="",         #5
+         DELETESQL ="",                 #6
 
-         USER = "",                     ##7
-         PASS = "",                     ##8
+         USER = "",                     #7
+         PASS = "",                     #8
 
          *args):
 
@@ -45,8 +45,15 @@ def main(config_file,                   ##0
 
     # Add general parameters
     section = 'LOCAL_DATA'
-    p_names = ['COMMUNITYPARCELSLOCALCOPY', 'localparcels', 'CreateCurrent','localfips']
-    p_vals  = [ communityparcellocalcopy,  localparcels, CreateCurrent , localfips ]
+    p_names = ['COMMUNITYPARCELSLOCALCOPY',
+                'localparcels',
+                'CreateCurrent',
+                'localfips']
+
+    p_vals  = [ communityparcellocalcopy,
+                localparcels,
+                CreateCurrent ,
+                localfips ]
 
     arcpy.AddMessage('Writing general parameters...')
     write_config(p_names, p_vals, config, section)

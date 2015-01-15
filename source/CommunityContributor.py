@@ -580,8 +580,8 @@ def main(config_file, *args):
 
     #Densify FC to support JSON conversion
 
-        arcpy.Densify_edit(CommunityParcelsLocalCopy, "OFFSET")
-        arcpy.RepairGeometry_management(CommunityParcelsLocalCopy)
+##        arcpy.Densify_edit(CommunityParcelsLocalCopy, "OFFSET")
+##        arcpy.RepairGeometry_management(CommunityParcelsLocalCopy)
 
 
         try:

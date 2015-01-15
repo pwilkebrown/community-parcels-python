@@ -25,51 +25,51 @@ def write_config(names, vals, config, section):
         config.set(section, names[i], vals[i])
         i += 1
 
-def main(config_file,                   ##0
+def main(config_file,                   #0
 
-         localparcels = "",             ##1
-         communityparcellocalcopy ="",  ##2
-         CreateCurrent = True,          ##3
-         localfips ="",                 ##4
+         localparcels = "",             #1
+         communityparcellocalcopy ="",  #2
+         CreateCurrent = True,          #3
+         localfips ="",                 #4
 
-         FEATURESERVICEURL ="",         ##5
-         DELETESQL ="",                 ##6
+         FEATURESERVICEURL ="",         #5
+         DELETESQL ="",                 #6
 
-         USER = "",                     ##7
-         PASS = "",                     ##8
+         USER = "",                     #7
+         PASS = "",                     #8
 
-         LowParcelID = "",              ##9
-         ParcelID =  "",                ##10
-         FloorDesignator = "",          ##11
-         StatedArea = "",               ##12
-         ConveyanceName = "",           ##13
-         UseCode = "",                  ##14
-         UseDescription = "",           ##15
-         TaxUseDescription = "",        ##16
-         Improved = "",                 ##17
-         Owntype = "",                  ##18
-         SiteAddress = "",              ##19
-         Ownername1 = "",               ##20
-         Ownername2 = "",               ##21
-         PostalAddress = "",            ##22
-         USPSBox = "",                  ##23
-         State = "",                    ##24
-         City = "",                     ##25
-         Zip = "",                      ##26
-         InternationalAddress = "",     ##27
-         TaxableValue = "",             ##28
-         SalePrice = "",                ##29
-         SaleDate = "",                 ##30
-         LocalFIPS = "",                ##31
-         StateFIPS = "",                ##32
-         GNISID = "",                   ##33
-         LastEditor = "",               ##34
-         LastUpdate = "",               ##35
-         SHAPE_Length = "",             ##36
-         SHAPE_Area = "",               ##37
-         ImprovedValue = "",            ##38
-         LandValue = "",                ##39
-         AssessedValue = "",            ##40
+         LowParcelID = "",              #9
+         ParcelID =  "",                #10
+         FloorDesignator = "",          #11
+         StatedArea = "",               #12
+         ConveyanceName = "",           #13
+         UseCode = "",                  #14
+         UseDescription = "",           #15
+         TaxUseDescription = "",        #16
+         Improved = "",                 #17
+         Owntype = "",                  #18
+         SiteAddress = "",              #19
+         Ownername1 = "",               #20
+         Ownername2 = "",               #21
+         PostalAddress = "",            #22
+         USPSBox = "",                  #23
+         State = "",                    #24
+         City = "",                     #25
+         Zip = "",                      #26
+         InternationalAddress = "",     #27
+         TaxableValue = "",             #28
+         SalePrice = "",                #29
+         SaleDate = "",                 #30
+         LocalFIPS = "",                #31
+         StateFIPS = "",                #32
+         GNISID = "",                   #33
+         LastEditor = "",               #34
+         LastUpdate = "",               #35
+         SHAPE_Length = "",             #36
+         SHAPE_Area = "",               #37
+         ImprovedValue = "",            #38
+         LandValue = "",                #39
+         AssessedValue = "",            #40
 
          *args):
 
@@ -78,8 +78,15 @@ def main(config_file,                   ##0
 
     # Add general parameters
     section = 'LOCAL_DATA'
-    p_names = ['LOCALPARCELS','COMMUNITYPARCELSLOCALCOPY','CreateCurrent','localfips']
-    p_vals  = [ localparcels,  communityparcellocalcopy,   CreateCurrent , localfips ]
+    p_names = ['LOCALPARCELS',
+                'COMMUNITYPARCELSLOCALCOPY',
+                'CreateCurrent',
+                'localfips']
+
+    p_vals  = [ localparcels,
+                communityparcellocalcopy,
+                CreateCurrent ,
+                localfips ]
 
     arcpy.AddMessage('Writing general parameters...')
     write_config(p_names, p_vals, config, section)
@@ -105,8 +112,66 @@ def main(config_file,                   ##0
 
     #Add general publication parameters
     section = 'FIELD_MAPPER'
-    p_names = ['LowParcelID','ParcelID','FloorDesignator','StatedArea','ConveyanceName', 'UseCode', 'UseDescription', 'TaxUseDescription', 'Improved', 'Owntype', 'SiteAddress', 'Ownername1', 'Ownername2', 'PostalAddress', 'USPSBox', 'State', 'City', 'Zip', 'InternationalAddress', 'TaxableValue','SalePrice', 'SaleDate', 'LocalFIPS', 'StateFIPS', 'GNISID', 'LastEditor','LastUpdate', 'ImprovedValue', 'LandValue', 'AssessedValue']
-    p_vals  = [ LowParcelID , ParcelID ,  FloorDesignator, StatedArea , ConveyanceName ,  UseCode ,  UseDescription ,  TaxUseDescription ,  Improved ,  Owntype ,  SiteAddress ,  Ownername1 ,  Ownername2 ,  PostalAddress ,  USPSBox ,  State ,  City ,  Zip ,  InternationalAddress ,  TaxableValue , SalePrice ,  SaleDate ,  LocalFIPS ,  StateFIPS ,  GNISID ,  LastEditor , LastUpdate ,  ImprovedValue ,  LandValue ,  AssessedValue ]
+    p_names = ['LowParcelID',
+                'ParcelID',
+                'FloorDesignator',
+                'StatedArea',
+                'ConveyanceName',
+                'UseCode',
+                'UseDescription',
+                'TaxUseDescription',
+                'Improved', 'Owntype',
+                'SiteAddress',
+                'Ownername1',
+                'Ownername2',
+                'PostalAddress',
+                'USPSBox',
+                'State',
+                'City',
+                'Zip',
+                'InternationalAddress',
+                'TaxableValue',
+                'SalePrice',
+                'SaleDate',
+                'LocalFIPS',
+                'StateFIPS',
+                'GNISID',
+                'LastEditor',
+                'LastUpdate',
+                'ImprovedValue',
+                'LandValue',
+                'AssessedValue']
+
+    p_vals  = [ LowParcelID ,
+                ParcelID ,
+                FloorDesignator,
+                StatedArea ,
+                ConveyanceName ,
+                UseCode ,
+                UseDescription ,
+                TaxUseDescription ,
+                Improved ,
+                Owntype ,
+                SiteAddress ,
+                Ownername1 ,
+                Ownername2 ,
+                PostalAddress ,
+                USPSBox ,
+                State ,
+                City ,
+                Zip ,
+                InternationalAddress ,
+                TaxableValue ,
+                SalePrice ,
+                SaleDate ,
+                LocalFIPS ,
+                StateFIPS ,
+                GNISID ,
+                LastEditor ,
+                LastUpdate ,
+                ImprovedValue ,
+                LandValue ,
+                AssessedValue ]
 
     arcpy.AddMessage('Writing general publication configuration parameters...')
     write_config(p_names, p_vals, config, section)
