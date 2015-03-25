@@ -25,6 +25,8 @@ def write_config(names, vals, config, section):
         config.set(section, names[i], vals[i])
         i += 1
 
+# Set configuration parameters
+
 def main(config_file,                   #0
 
          localparcels = "",             #1
