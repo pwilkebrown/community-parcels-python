@@ -580,7 +580,7 @@ def main(config_file, *args):
 
     #Densify FC to support JSON conversion
 
-        arcpy.Densify_edit(CommunityParcelsLocalCopy, "DISTANCE", "10 Feet")
+        arcpy.Densify_edit(CommunityParcelsLocalCopy)
 ##        arcpy.RepairGeometry_management(CommunityParcelsLocalCopy)
 
 
