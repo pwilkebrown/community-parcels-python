@@ -90,17 +90,18 @@ def main(config_file, *args):
     if createCurrent == "True":
         fs.url = reportCurrentURL
 
-        arcpy.Append_management(CommunityParcelsLocalCopy, localparcels, "TEST")
-        print "Mapping Local Parcel data to Community Parcel Schema"
-        arcpy.AddMessage("Mapping Local Parcel data to Community Parcel Schema")
+    	arcpy.Append_management(CommunityParcelsLocalCopy, localparcels, "TEST")
+    	print "Mapping Local Parcel data to Community Parcel Schema"
+    	arcpy.AddMessage("Mapping Local Parcel data to Community Parcel Schema")
 
-        arcpy.Densify_edit(localparcels, "OFFSET")
-        print "Simplifying (densifying) Parcel Geometry"
+		arcpy.Densify_edit(localparcels)
+		simplify = "{}temp".format(localparcels)
+		arcpy.SimplifyPolygon_cartography(localparcels, simplify, "POINT_REMOVE", "1 Meters")
+    	print "Simplifying (densifying) Parcel Geometry"
         arcpy.AddMessage("Simplifying (densifying) Parcel Geometry")
 
-##        arcpy.RepairGeometry_management(localparcels)
-##        print "Repairing Parcel Geometry"
-##        arcpy.AddMessage("Repairing Parcel Geometry")
+
+
 
         print "Truncating Parcels from Feature Service"
         arcpy.AddMessage("Truncating Parcels from Feature Service")
@@ -143,8 +144,8 @@ def main(config_file, *args):
         print "Community Parcels upload Started"
         arcpy.AddMessage("Community Parcels upload started, please be patient. For future consideration, please run tool during non-peak internet usage")
 
-        fs.addFeatures(localparcels)
-
+        fs.addFeatures(simplify)
+		arcpy.Delete_management(simplify)
 
 if __name__ == '__main__':
     argv = tuple(arcpy.GetParameterAsText(i)
