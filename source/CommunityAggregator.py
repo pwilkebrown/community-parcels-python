@@ -130,9 +130,27 @@ def main(config_file, *args):
 		pass
 
 	print "Community Parcels upload Started"
-	arcpy.AddMessage("Community Parcels upload started, please be patient. For future consideration, please run tool during non-peak internet usage")
+	arcpy.AddMessage("Community Parcels upload started, please be patient.  For future consideration, please run tool during non-peak internet usage")
 
-	fs.addFeatures(simplify)
+	arcpy.env.overwriteOutput = True
+	inDesc = arcpy.Describe(simplify)
+	oidName = arcpy.AddFieldDelimiters(simplify,inDesc.oidFieldName)
+	sql = '%s = (select min(%s) from %s)' % (oidName,oidName,os.path.basename(simplify))
+	cur = arcpy.da.SearchCursor(simplify,[inDesc.oidFieldName],sql)
+	minOID = cur.next()[0]
+	del cur, sql
+	sql = '%s = (select max(%s) from %s)' % (oidName,oidName,os.path.basename(simplify))
+	cur = arcpy.da.SearchCursor(simplify,[inDesc.oidFieldName],sql)
+	maxOID = cur.next()[0]
+	del cur, sql
+	breaks = range(minOID,maxOID)[0:-1:100] #2K slices
+	breaks.append(maxOID+1)
+	exprList = [oidName + ' >= ' + str(breaks[b]) + ' and ' + \
+				oidName + ' < ' + str(breaks[b+1]) for b in range(len(breaks)-1)]
+	for expr in exprList:
+		UploadLayer = arcpy.MakeFeatureLayer_management(simplify, 'TEMPCOPY', expr).getOutput(0)
+		fs.addFeatures(UploadLayer)
+
 	arcpy.Delete_management(simplify)
 
 if __name__ == '__main__':
