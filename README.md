@@ -72,5 +72,5 @@ limitations under the License.
 A copy of the license is available in the repository's
 [LICENSE.txt](https://github.com/Esri/community-parcels-python/blob/master/License.txt) file.
 
-[](Esri Tags: LocalGovernment CommunityParcels AGOL Python ArcGIS-Online State-Government Government)
+[](Esri Tags: Local-Government CommunityParcels AGOL Python ArcGIS-Online State-Government Government)
 [](Esri Language: Python)
