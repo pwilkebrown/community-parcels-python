@@ -5,9 +5,9 @@
 
 Update Community Parcels
 
-The Community Parcel solution will leverage the core ArcGIS Platform to help communities aggregate parcel information from authoritative sources in a simple and sustainable way and leverage this information in many workflows. 
+The Community Parcel solution will leverage the core ArcGIS Platform to help communities aggregate parcel information from authoritative sources in a simple and sustainable way and leverage this information in many workflows.
 
-This GitHub repository houses the data aggregation toolset used to update the community parcels (seamless set of parcels) feature service. 
+This GitHub repository houses the data aggregation toolset used to update the community parcels (seamless set of parcels) feature service.
 
 This solutions makes use of [ArcRest] (https://github.com/Esri/ArcREST)
 
@@ -17,7 +17,7 @@ Toolset Include the following:
 
 2. Update the Community Parcels service - Truncate, delete parcels from existing service (based on FIPS code), Add authoritative parcel data from local source
 
-3. Promote ongoing contributions - Run ad-hoc (quarterly, weekly, daily), Schedule nightly using a script 
+3. Promote ongoing contributions - Run ad-hoc (quarterly, weekly, daily), Schedule nightly using a script
 
 
 
@@ -32,7 +32,7 @@ Toolset Include the following:
 * For editing and customizing the scripts - Notepad or a Python Editor
 * Basic understanding of GeoProcessing with ArcGIS
 * ArcGIS Desktop 10.2
- 
+
 ## Resources
 
 Learn more abour the [Community Parcels] (http://solutions.arcgis.com/state-government/help/community-parcels/).
@@ -72,5 +72,5 @@ limitations under the License.
 A copy of the license is available in the repository's
 [LICENSE.txt](https://github.com/Esri/community-parcels-python/blob/master/License.txt) file.
 
-[](Esri Tags: Local-Government CommunityParcels AGOL Python ArcGIS-Online State-Government Government)
+[](Esri Tags: ArcGISSolutions State-Government Local-Government State Local Government Online Apps Community Parcels)
 [](Esri Language: Python)
