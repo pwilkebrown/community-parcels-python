@@ -1,5 +1,6 @@
 # Community Parcels
 
+***This community-parcels-python repo has been replaced by the Data Assistant in the [data-assistant repo](https://github.com/Esri/data-assistant). Applications built from this community-parcels-python repo are in mature support.***
 
 ## Features
 
